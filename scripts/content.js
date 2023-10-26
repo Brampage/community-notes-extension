@@ -134,13 +134,16 @@ function openPopUp(text) {
     margin: 1em;
     position: absolute;
     border: solid 1px black;
-    top: 0;
-    left: 0;
+    border-radius: 5px;
+    font-size: small;
+    bottom: 2em;
+    right: 0.5em;
     background: white;
+    height: 30em;
   ">
     <form>
-      <textarea>${text}</textarea>
-      <textarea placeholder="Your notes here..."></textarea>
+      <textarea style="height: 100%">${text}</textarea>
+      <textarea style="height: 100%" placeholder="Your notes here..."></textarea>
     </form>
   </div>
   `
