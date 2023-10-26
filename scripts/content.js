@@ -30,7 +30,8 @@ function renderCreateCommunityNoteButton() {
 
   button.addEventListener('click', () => {
     console.log('selected text:', selectedText);
-    highlightSelection();
+    // highlightSelection();
+    openPopUp(selectedText);
   });
 }
 
@@ -120,4 +121,29 @@ function getSafeRanges(dangerous) {
 
   // Send to Console
   return response;
+}
+
+/**
+ * Popup Form
+ */
+function openPopUp(text) {
+  const popup = document.createElement('div')
+  const html = `
+  <div style="
+    padding: 1em;
+    margin: 1em;
+    position: absolute;
+    border: solid 1px black;
+    top: 0;
+    left: 0;
+    background: white;
+  ">
+    <form>
+      <textarea>${text}</textarea>
+      <textarea placeholder="Your notes here..."></textarea>
+    </form>
+  </div>
+  `
+  popup.innerHTML = html;
+  document.body.appendChild(popup)
 }
