@@ -39,11 +39,23 @@ function renderCreateCommunityNoteButton() {
 
   document.body.appendChild(button);
 
-  button.addEventListener('click', () => {
-    console.log('selected text:', selectedText);
-    // highlightSelection();
-    openPopUp(selectedText);
-  });
+  let popupElement;
+
+
+  button.onclick =  () => {
+    if (!popupElement) {
+      console.log('selected text:', selectedText);
+      highlightSelection();
+      popupElement = openPopUp(selectedText);
+      button.textContent = 'X';
+    } else {
+      popupElement.remove();
+      popupElement = undefined;
+      button.textContent = 'C';
+    }
+  };
+
+
 }
 
 renderCreateCommunityNoteButton();
@@ -176,8 +188,10 @@ function openPopUp(text) {
   formElement?.appendChild(submitBtn);
   console.log('>>> form', formElement);
   document.body.appendChild(popup);
+  return popup;
 }
 
 function saveNote(note) {
   console.log('>>> saving note', note);
 }
+
