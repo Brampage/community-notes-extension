@@ -1,4 +1,4 @@
-import { testMethod } from "./test";
+import { testMethod } from './test';
 
 testMethod();
 
@@ -43,11 +43,20 @@ function renderCreateCommunityNoteButton() {
 
   document.body.appendChild(button);
 
-  button.addEventListener('click', () => {
-    console.log('selected text:', selectedText);
-    // highlightSelection();
-    openPopUp(selectedText);
-  });
+  let popupElement;
+
+  button.onclick = () => {
+    if (!popupElement) {
+      console.log('selected text:', selectedText);
+      highlightSelection();
+      popupElement = openPopUp(selectedText);
+      button.textContent = 'X';
+    } else {
+      popupElement.remove();
+      popupElement = undefined;
+      button.textContent = 'C';
+    }
+  };
 }
 
 renderCreateCommunityNoteButton();
@@ -145,24 +154,23 @@ function openPopUp(text) {
   const popup = document.createElement('div');
   const html = `
   <div id="popup-wrapper" style="
-    padding: 1em;
-    margin: 1em;
     position: absolute;
+    height: 30em;
+    bottom: 3em;
+    right: 3em;
+    padding: 1em;
     border: solid 1px black;
     border-radius: 5px;
     font-size: small;
-    bottom: 2em;
-    right: 0.5em;
-    background: white;
-    height: 30em;
+    background: lightgrey;
     max-width: 30em;
   ">
     <div style="padding: 1em">
-      <span>${text}</span>
+      <div style="margin-bottom: 1em;">${text}</div>
+      <form id="note-form" style="margin-bottom: 1em;">
+        <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..." name="note"></textarea>
+      </form>
     </div>
-    <form id="note-form">
-      <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..." name="note"></textarea>
-    </form>
   </div>
   `;
   popup.innerHTML = html;
@@ -171,15 +179,15 @@ function openPopUp(text) {
   /**
    * @type {HTMLTextAreaElement | null | undefined}
    */
-  const note = formElement?.querySelector('#note-field');
-  submitBtn.innerText = "Save";
+  const noteField = formElement?.querySelector('#note-field');
+  submitBtn.innerText = 'Save';
   submitBtn.onclick = (e) => {
     e.preventDefault();
-    const note = popup.querySelector('textarea[name=note]')?.value;
-    storeNote(window.location.href, note);
+    storeNote(window.location.href, noteField?.value);
     popup.remove();
-  }
+  };
   formElement?.appendChild(submitBtn);
-  console.log('>>> form', formElement)
-  document.body.appendChild(popup)
+  console.log('>>> form', formElement);
+  document.body.appendChild(popup);
+  return popup;
 }
