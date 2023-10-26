@@ -2,7 +2,10 @@ console.log('content script loaded');
 
 let selectedText = '';
 function handleSelection() {
-  addEventListener('mouseup', highlightSelection)
+  addEventListener('mouseup', () => {
+    var userSelection = window.getSelection()?.getRangeAt(0);
+    selectedText = userSelection?.toString() ?? '';
+  })
 }
 
 function renderCreateCommunityNoteButton() {
@@ -26,6 +29,7 @@ function renderCreateCommunityNoteButton() {
 
   bubble.addEventListener('click', () => {
     console.log('selected text:', selectedText);
+    highlightSelection();
   });
 }
 
