@@ -1,6 +1,8 @@
 
-export function highlightSelection() {
-  var userSelection = window.getSelection().getRangeAt(0);
+function highlightSelection() {
+  var userSelection = window.getSelection()?.getRangeAt(0);
+  if (!userSelection) return;
+
   var safeRanges = getSafeRanges(userSelection);
   for (var i = 0; i < safeRanges.length; i++) {
     highlightRange(safeRanges[i]);
