@@ -1,4 +1,5 @@
 import { testMethod } from './test';
+import './components/popup';
 
 testMethod();
 
@@ -150,30 +151,8 @@ function getSafeRanges(dangerous) {
 /**
  * Popup Form
  */
-function openPopUp(text) {
+function openPopUp(text: string) {
   const popup = document.createElement('div');
-  const html = `
-  <div id="popup-wrapper" style="
-    position: absolute;
-    height: 30em;
-    bottom: 3em;
-    right: 3em;
-    padding: 1em;
-    border: solid 1px black;
-    border-radius: 5px;
-    font-size: small;
-    background: lightgrey;
-    max-width: 30em;
-  ">
-    <div style="padding: 1em">
-      <div style="margin-bottom: 1em;">${text}</div>
-      <form id="note-form" style="margin-bottom: 1em;">
-        <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..." name="note"></textarea>
-      </form>
-    </div>
-  </div>
-  `;
-  popup.innerHTML = html;
   const formElement = popup.querySelector('#note-form');
   const submitBtn = document.createElement('button');
   /**
@@ -188,6 +167,6 @@ function openPopUp(text) {
   };
   formElement?.appendChild(submitBtn);
   console.log('>>> form', formElement);
-  document.body.appendChild(popup);
+  document.body.innerHTML += `<cn-popup text="${text}"></cm-popup>`;
   return popup;
 }
