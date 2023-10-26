@@ -142,8 +142,8 @@ function openPopUp(text) {
     height: 30em;
     max-width: 30em;
   ">
-    <div>
-      <span style="height: 100%; padding: 1em;">${text}</span>
+    <div style="padding: 1em">
+      <span>${text}</span>
     </div>
     <form>
       <textarea style="width: 100%; padding: 1em;" placeholder="Your notes here..."></textarea>
