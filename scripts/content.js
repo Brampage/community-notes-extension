@@ -167,12 +167,11 @@ function openPopUp(text) {
   /**
    * @type {HTMLTextAreaElement | null | undefined}
    */
-  const note = formElement?.querySelector('#note-field');
+  const noteField = formElement?.querySelector('#note-field');
   submitBtn.innerText = "Save";
   submitBtn.onclick = (e) => {
     e.preventDefault();
-    const note = popup.querySelector('textarea[name=note]')?.value;
-    storeNote(window.location.href, note);
+    storeNote(window.location.href, noteField?.value);
     popup.remove();
   }
   formElement?.appendChild(submitBtn);
