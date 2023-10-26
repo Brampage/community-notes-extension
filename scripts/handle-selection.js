@@ -1,6 +1,5 @@
-document.addEventListener('mouseup', highlightSelection);
 
-function highlightSelection() {
+export function highlightSelection() {
   var userSelection = window.getSelection().getRangeAt(0);
   var safeRanges = getSafeRanges(userSelection);
   for (var i = 0; i < safeRanges.length; i++) {
