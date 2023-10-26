@@ -1,5 +1,16 @@
 console.log('content script loaded');
 
+function storeNote(url, note) {
+  const data = {
+    [url]: { note },
+  };
+  chrome.storage.local.set(data);
+}
+
+chrome.storage.local.get(window.location.href, (data) => {
+  console.log('Notes for this page:', data);
+});
+
 let selectedText = '';
 function handleSelection() {
   addEventListener('mouseup', () => {
@@ -127,7 +138,7 @@ function getSafeRanges(dangerous) {
  * Popup Form
  */
 function openPopUp(text) {
-  const popup = document.createElement('div')
+  const popup = document.createElement('div');
   const html = `
   <div style="
     padding: 1em;
@@ -143,10 +154,17 @@ function openPopUp(text) {
   ">
     <form>
       <textarea style="height: 100%">${text}</textarea>
-      <textarea style="height: 100%" placeholder="Your notes here..."></textarea>
+      <textarea style="height: 100%" name="note"  placeholder="Your notes here..."></textarea>
+      <button>Save</button>
     </form>
   </div>
-  `
+  `;
   popup.innerHTML = html;
-  document.body.appendChild(popup)
+  popup.querySelector('button')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const note = popup.querySelector('textarea[name=note]')?.value;
+    storeNote(window.location.href, note);
+    popup.remove();
+  });
+  document.body.appendChild(popup);
 }
