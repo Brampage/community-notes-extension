@@ -5,7 +5,7 @@ function handleSelection() {
   addEventListener('mouseup', () => {
     var userSelection = window.getSelection()?.getRangeAt(0);
     selectedText = userSelection?.toString() ?? '';
-  })
+  });
 }
 
 function renderCreateCommunityNoteButton() {
@@ -17,7 +17,7 @@ function renderCreateCommunityNoteButton() {
   button.style.width = '35px';
   button.style.height = '35px';
   button.style.borderRadius = '50%';
-  button.style.backgroundColor = 'lightgrey';
+  button.style.backgroundColor = 'grey';
   button.style.color = 'white';
   button.style.cursor = 'pointer';
   button.style.border = 'none';
