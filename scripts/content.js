@@ -2,7 +2,7 @@ console.log('content script loaded');
 
 function storeNote(url, note) {
   const data = {
-    [url]: { note },
+    [url]: {note},
   };
   chrome.storage.local.set(data);
 }
@@ -141,24 +141,23 @@ function openPopUp(text) {
   const popup = document.createElement('div');
   const html = `
   <div id="popup-wrapper" style="
-    padding: 1em;
-    margin: 1em;
     position: absolute;
+    height: 30em;
+    bottom: 3em;
+    right: 3em;
+    padding: 1em;
     border: solid 1px black;
     border-radius: 5px;
     font-size: small;
-    bottom: 2em;
-    right: 0.5em;
-    background: white;
-    height: 30em;
+    background: lightgrey;
     max-width: 30em;
   ">
     <div style="padding: 1em">
-      <span>${text}</span>
+      <div style="margin-bottom: 1em;">${text}</div>
+      <form id="note-form" style="margin-bottom: 1em;">
+        <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..." name="note"></textarea>
+      </form>
     </div>
-    <form id="note-form">
-      <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..." name="note"></textarea>
-    </form>
   </div>
   `;
   popup.innerHTML = html;
@@ -173,12 +172,12 @@ function openPopUp(text) {
     e.preventDefault();
     storeNote(window.location.href, noteField?.value);
     popup.remove();
-  }
+  };
   formElement?.appendChild(submitBtn);
-  console.log('>>> form', formElement)
-  document.body.appendChild(popup)
+  console.log('>>> form', formElement);
+  document.body.appendChild(popup);
 }
 
 function saveNote(note) {
-  console.log('>>> saving note', note)
+  console.log('>>> saving note', note);
 }
