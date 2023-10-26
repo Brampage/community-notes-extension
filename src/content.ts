@@ -1,6 +1,10 @@
+import { testMethod } from "./test";
+
+testMethod();
+
 console.log('content script loaded');
 
-function storeNote(url, note) {
+function storeNote(url: string, note: string) {
   const data = {
     [url]: { note },
   };
@@ -178,8 +182,4 @@ function openPopUp(text) {
   formElement?.appendChild(submitBtn);
   console.log('>>> form', formElement)
   document.body.appendChild(popup)
-}
-
-function saveNote(note) {
-  console.log('>>> saving note', note)
 }
