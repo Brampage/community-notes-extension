@@ -10,24 +10,25 @@ function handleSelection() {
 
 function renderCreateCommunityNoteButton() {
   // create a circle element that is always positioned on the right bottom of the screen
-  const bubble = document.createElement('button');
-  bubble.style.position = 'fixed';
-  bubble.style.top = '20px';
-  bubble.style.right = '20px';
-  bubble.style.width = '35px';
-  bubble.style.height = '35px';
-  bubble.style.borderRadius = '50%';
-  bubble.style.backgroundColor = 'grey';
-  bubble.style.color = 'white';
-  bubble.style.cursor = 'pointer';
-  bubble.style.border = 'none';
-  bubble.style.zIndex = '9999';
+  const button = document.createElement('button');
+  button.style.position = 'fixed';
+  button.style.bottom = '20px';
+  button.style.right = '20px';
+  button.style.width = '35px';
+  button.style.height = '35px';
+  button.style.borderRadius = '50%';
+  button.style.backgroundColor = 'lightgrey';
+  button.style.color = 'white';
+  button.style.cursor = 'pointer';
+  button.style.border = 'none';
+  button.style.zIndex = '9999';
+  button.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.3)';
 
-  bubble.textContent = 'C';
+  button.textContent = 'C';
 
-  document.body.appendChild(bubble);
+  document.body.appendChild(button);
 
-  bubble.addEventListener('click', () => {
+  button.addEventListener('click', () => {
     console.log('selected text:', selectedText);
     highlightSelection();
   });
@@ -48,22 +49,19 @@ function highlightSelection() {
   for (var i = 0; i < safeRanges.length; i++) {
     highlightRange(safeRanges[i]);
   }
-
 }
 
 function highlightRange(range) {
-  var newNode = document.createElement("div");
-  newNode.setAttribute(
-    "style",
-    "background-color: yellow; display: inline;"
-  );
+  var newNode = document.createElement('div');
+  newNode.setAttribute('style', 'background-color: yellow; display: inline;');
   range.surroundContents(newNode);
 }
 
 function getSafeRanges(dangerous) {
   var a = dangerous.commonAncestorContainer;
   // Starts -- Work inward from the start, selecting the largest safe range
-  var s = new Array(0), rs = new Array(0);
+  var s = new Array(0),
+    rs = new Array(0);
   if (dangerous.startContainer != a) {
     for (var i = dangerous.startContainer; i != a; i = i.parentNode) {
       s.push(i);
@@ -77,14 +75,15 @@ function getSafeRanges(dangerous) {
         xs.setEndAfter(s[i].lastChild);
       } else {
         xs.setStart(s[i], dangerous.startOffset);
-        xs.setEndAfter((s[i].nodeType == Node.TEXT_NODE) ? s[i] : s[i].lastChild);
+        xs.setEndAfter(s[i].nodeType == Node.TEXT_NODE ? s[i] : s[i].lastChild);
       }
       rs.push(xs);
     }
   }
 
   // Ends -- basically the same code reversed
-  var e = new Array(0), re = new Array(0);
+  var e = new Array(0),
+    re = new Array(0);
   if (dangerous.endContainer != a) {
     for (var i = dangerous.endContainer; i != a; i = i.parentNode) {
       e.push(i);
@@ -97,7 +96,9 @@ function getSafeRanges(dangerous) {
         xe.setStartBefore(e[i].firstChild);
         xe.setEndBefore(e[i - 1]);
       } else {
-        xe.setStartBefore((e[i].nodeType == Node.TEXT_NODE) ? e[i] : e[i].firstChild);
+        xe.setStartBefore(
+          e[i].nodeType == Node.TEXT_NODE ? e[i] : e[i].firstChild
+        );
         xe.setEnd(e[i], dangerous.endOffset);
       }
       re.unshift(xe);
@@ -105,7 +106,7 @@ function getSafeRanges(dangerous) {
   }
 
   // Middle -- the uncaptured middle
-  if ((s.length > 0) && (e.length > 0)) {
+  if (s.length > 0 && e.length > 0) {
     var xm = document.createRange();
     xm.setStartAfter(s[s.length - 1]);
     xm.setEndBefore(e[e.length - 1]);
