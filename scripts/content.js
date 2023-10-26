@@ -129,7 +129,7 @@ function getSafeRanges(dangerous) {
 function openPopUp(text) {
   const popup = document.createElement('div')
   const html = `
-  <div style="
+  <div id="popup-wrapper" style="
     padding: 1em;
     margin: 1em;
     position: absolute;
@@ -145,11 +145,28 @@ function openPopUp(text) {
     <div style="padding: 1em">
       <span>${text}</span>
     </div>
-    <form>
-      <textarea style="width: 100%; padding: 1em;" placeholder="Your notes here..."></textarea>
+    <form id="note-form">
+      <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..."></textarea>
     </form>
   </div>
   `
   popup.innerHTML = html;
+  const formElement = popup.querySelector('#note-form');
+  const submitBtn = document.createElement('button');
+  /**
+   * @type {HTMLTextAreaElement | null | undefined}
+   */
+  const note = formElement?.querySelector('#note-field');
+  submitBtn.innerText = "Save";
+  submitBtn.onclick = (e) => {
+    e.preventDefault();
+    saveNote(note?.value);
+  }
+  formElement?.appendChild(submitBtn);
+  console.log('>>> form', formElement)
   document.body.appendChild(popup)
+}
+
+function saveNote(note) {
+  console.log('>>> saving note', note)
 }
