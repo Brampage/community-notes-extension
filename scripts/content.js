@@ -140,7 +140,7 @@ function getSafeRanges(dangerous) {
 function openPopUp(text) {
   const popup = document.createElement('div');
   const html = `
-  <div style="
+  <div id="popup-wrapper" style="
     padding: 1em;
     margin: 1em;
     position: absolute;
@@ -151,20 +151,35 @@ function openPopUp(text) {
     right: 0.5em;
     background: white;
     height: 30em;
+    max-width: 30em;
   ">
-    <form>
-      <textarea style="height: 100%">${text}</textarea>
-      <textarea style="height: 100%" name="note"  placeholder="Your notes here..."></textarea>
-      <button>Save</button>
+    <div style="padding: 1em">
+      <span>${text}</span>
+    </div>
+    <form id="note-form">
+      <textarea id="note-field" style="width: 100%; padding: 1em;" placeholder="Your notes here..." name="note"></textarea>
     </form>
   </div>
   `;
   popup.innerHTML = html;
-  popup.querySelector('button')?.addEventListener('click', (e) => {
+  const formElement = popup.querySelector('#note-form');
+  const submitBtn = document.createElement('button');
+  /**
+   * @type {HTMLTextAreaElement | null | undefined}
+   */
+  const note = formElement?.querySelector('#note-field');
+  submitBtn.innerText = "Save";
+  submitBtn.onclick = (e) => {
     e.preventDefault();
     const note = popup.querySelector('textarea[name=note]')?.value;
     storeNote(window.location.href, note);
     popup.remove();
-  });
-  document.body.appendChild(popup);
+  }
+  formElement?.appendChild(submitBtn);
+  console.log('>>> form', formElement)
+  document.body.appendChild(popup)
+}
+
+function saveNote(note) {
+  console.log('>>> saving note', note)
 }
