@@ -2,8 +2,6 @@ import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {highlightSelection} from './selection-handler';
 
-import './components/popup-toggle';
-
 @customElement('cn-app')
 export class App extends LitElement {
   @property()
@@ -21,13 +19,14 @@ export class App extends LitElement {
     highlightSelection();
   }
 
+  handleToggle(): void {}
+
   render() {
     return html`
       <h1 id="test">TEST</h1>
-      <!-- <cn-popup-toggle></cn-popup-toggle> -->
+      <cn-popup-toggle @onTogglePopup=${this.handleToggle}></cn-popup-toggle>
 
-      <!-- <cn-popup text="${this
-        .selectedText}" @onSave=${this.handleOnSave()}></cm-popup> -->
+      <cn-popup text="${this.selectedText}" @onSave=${this.handleOnSave}></cm-popup>
     `;
   }
 }
