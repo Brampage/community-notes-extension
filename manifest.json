@@ -10,8 +10,7 @@
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
-      "matches": ["<all_urls>"],
-      "all_frames": true
+      "matches": ["<all_urls>"]
     }
   ]
 }

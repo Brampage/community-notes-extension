@@ -9,12 +9,6 @@ function handleSelection(){
 
 function highlightRange(range) {
   console.log('>>> highlighting text', range.toString())
-  var newNode = document.createElement("div");
-  newNode.setAttribute(
-     "style",
-     "background-color: yellow; display: inline;"
-  );
-  range.surroundContents(newNode);
 }
 
 function renderBubble() {
