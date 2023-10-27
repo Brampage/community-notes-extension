@@ -9,7 +9,7 @@ export class App extends LitElement {
   selectedText?: string;
 
   @property()
-  isPopupShown = true;
+  isPopupShown = false;
 
   static styles = [
     css`
