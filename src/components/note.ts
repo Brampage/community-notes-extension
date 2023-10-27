@@ -15,7 +15,7 @@ export class PopupNote extends LitElement {
     .note {
       display: flex;
       flex-direction: column;
-      gap: 0.2em;
+      gap: 0.5em;
 
       background: white;
       padding: 1em;
