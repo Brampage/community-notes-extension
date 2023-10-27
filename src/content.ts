@@ -5,7 +5,7 @@ import './app';
 import './components/popup-toggle';
 import './components/popup-form';
 import './components/popup-list';
-import './components/link';
+import './components/note';
 import './components/popup';
 
 console.log('content script loaded');
