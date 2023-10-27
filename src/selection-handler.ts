@@ -17,7 +17,7 @@ function highlightRange(range: any) {
   newNode.setAttribute('style', 'background-color: yellow; display: inline; cursor: pointer;');
   newNode.onclick = () => {
     _caller.selectedText = range.toString();
-    _caller.isPopupShown = true;
+    _caller.isPopupShown = !_caller.isPopupShown;
   }
   range.surroundContents(newNode);
 }
