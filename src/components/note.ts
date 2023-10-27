@@ -1,14 +1,18 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {Note} from '../storage';
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { Note } from "../storage";
+import { classMap } from "lit/directives/class-map.js";
 
-@customElement('cn-note')
+@customElement("cn-note")
 export class PopupNote extends LitElement {
   @property()
   note?: Note;
 
+  @property()
+  full?: boolean;
+
   static styles = css`
-    .note {
+    .link {
       display: flex;
       flex-direction: column;
       gap: 0.2em;
@@ -19,16 +23,16 @@ export class PopupNote extends LitElement {
       border: 1px solid #ddd;
       border-radius: 5px;
     }
-    .note:hover {
+    .link:hover {
       border: 1px solid #888;
     }
-    p {
+    .link:not(.full) p {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    h4 {
+    .link:not(.full) h4 {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -48,7 +52,7 @@ export class PopupNote extends LitElement {
 
   render() {
     return html`
-      <div class="note">
+      <div class="link ${classMap({ full: !!this.full })}">
         ${this.note?.title && html`<h4>${this.note.title}</h4>`}
         ${this.note?.selectedText &&
         html`<p id="selectedText">${this.note.selectedText}</p>`}

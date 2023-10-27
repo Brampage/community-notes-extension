@@ -21,9 +21,18 @@ export class PopupList extends LitElement {
     this.notes = await getNotes(window.location.href);
     console.log('notes: ', this.notes);
   }
+
+  @state()
+  fullNote?: Note;
+
+  openNote(note: Note) {
+    this.fullNote = note;
+    console.log('>>> full note', this.fullNote)
+  }
+
   render() {
-    return html`${this.notes.map(
-      (note) => html`<cn-note .note=${note}></cn-note>`
+    return !!this.fullNote ? html`<cn-note .full=${true} .note=${this.fullNote}></cn-note>` : html`${this.notes.map(
+      (note) => html`<cn-note @click=${() => this.openNote(note)} .note=${note}></cn-note>`
     )} `;
   }
 }
