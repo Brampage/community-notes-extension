@@ -57,6 +57,9 @@ export class Popup extends LitElement {
       flex-direction: column;
       gap: 1em;
       padding: 1em;
+
+      max-height: 60vh;
+      overflow-y: auto;
     }
 
     .popup-tabs {
