@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {highlightSelection} from './selection-handler';
-import { getNotes } from './storage';
+import {getNotes} from './storage';
 
 @customElement('cn-app')
 export class App extends LitElement {
@@ -9,7 +9,7 @@ export class App extends LitElement {
   selectedText?: string;
 
   @property()
-  isPopupShown = false;
+  isPopupShown = true;
 
   async connectedCallback(): void {
     super.connectedCallback();
@@ -30,10 +30,8 @@ export class App extends LitElement {
 
   handleToggle(): void {
     this.isPopupShown = !this.isPopupShown;
-    if (
-      this.isPopupShown
-    ) {
-      highlightSelection({caller:this});
+    if (this.isPopupShown) {
+      highlightSelection({caller: this});
     }
     console.log('isPopupShown: ', this.isPopupShown);
   }
