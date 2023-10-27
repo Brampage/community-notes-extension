@@ -1,6 +1,6 @@
-import { LitElement, css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { Note } from "../storage";
+import {LitElement, css, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import {Note} from '../storage';
 
 @customElement('cn-note')
 export class PopupNote extends LitElement {
@@ -8,20 +8,18 @@ export class PopupNote extends LitElement {
   note?: Note;
 
   static styles = css`
-
-    .link {
+    .note {
       display: flex;
       flex-direction: column;
       gap: 0.2em;
 
       background: white;
       padding: 1em;
-      margin-bottom: 1em;
       cursor: pointer;
       border: 1px solid #ddd;
       border-radius: 5px;
     }
-    .link:hover {
+    .note:hover {
       border: 1px solid #888;
     }
     p {
@@ -50,9 +48,10 @@ export class PopupNote extends LitElement {
 
   render() {
     return html`
-      <div class="link">
+      <div class="note">
         ${this.note?.title && html`<h4>${this.note.title}</h4>`}
-        ${this.note?.selectedText && html`<p id="selectedText">${this.note.selectedText}</p>`}
+        ${this.note?.selectedText &&
+        html`<p id="selectedText">${this.note.selectedText}</p>`}
         ${this.note?.note && html`<p>${this.note.note}</p>`}
         ${this.note?.domain && html`<a href="#">${this.note.domain}</a>`}
       </div>
