@@ -1,5 +1,5 @@
 import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, state} from 'lit/decorators.js';
 import {storeNote} from '../storage';
 
 @customElement('cn-popup-form')
@@ -7,6 +7,7 @@ export class PopupForm extends LitElement {
   @property()
   selectedText?: string;
 
+  @state()
   note?: string;
 
   static styles = css`
@@ -45,10 +46,9 @@ export class PopupForm extends LitElement {
       border: 1px solid #ddd;
       border-radius: 5px;
       padding: 0.7em;
-      cursor: pointer;
     }
 
-    button:hover {
+    button:hover:not([disabled])) {
       background: #eee;
     }
   `;
@@ -63,7 +63,7 @@ export class PopupForm extends LitElement {
       url: window.location.href,
       title: document.title,
     });
-    const customEvent = new Event('onSave');
+    const customEvent = new Event('onSave', {bubbles: true, composed: true});
     this.dispatchEvent(customEvent);
   }
 
@@ -79,14 +79,14 @@ export class PopupForm extends LitElement {
           id="note-field"
           placeholder="Your notes here..."
           name="note"
-          @change=${(e: Event) =>
+          @input=${(e: Event) =>
             (this.note = (e.target as HTMLTextAreaElement).value)}
           rows="15"
           cols="50"
         >
 ${this.note}</textarea
         >
-        <button @click=${this.handleSave}>Save</button>
+        <button .disabled=${!this.note} @click=${this.handleSave}>Save</button>
       </form>`;
   }
 }

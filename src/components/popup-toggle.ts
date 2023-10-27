@@ -1,10 +1,13 @@
-import { LitElement, css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-@customElement("cn-popup-toggle")
+@customElement('cn-popup-toggle')
 export class PopupToggle extends LitElement {
   @property()
   isPopupShown?: string;
+
+  @property()
+  badgeCount = 0;
 
   static styles = css`
     button:hover {
@@ -25,19 +28,38 @@ export class PopupToggle extends LitElement {
       border: none;
       z-index: 9999;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      border: 1px solid transparent;
     }
+
     svg {
       padding-top: 4px;
+    }
+
+    .badge {
+      display: inline-block;
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      background: red;
+      color: white;
+      min-width: 24px;
+      height: 20px;
+      padding: 3px 0 0 0;
+      border-radius: 50%;
+      font-weight: bold;
     }
   `;
 
   handleTogglePopup(_e: Event) {
-    const event = new Event("onTogglePopup");
+    const event = new Event('onTogglePopup');
     this.dispatchEvent(event);
   }
 
   render() {
     return html`<button id="popup-toggle" @click=${this.handleTogglePopup}>
+      ${this.badgeCount > 0
+        ? html`<span class="badge">${this.badgeCount}</span>`
+        : html``}
       ${this.isPopupShown
         ? html`<svg
             xmlns="http://www.w3.org/2000/svg"
