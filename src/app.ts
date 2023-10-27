@@ -83,10 +83,6 @@ export class App extends LitElement {
     });
   }
 
-  handleOnSave(): void {
-    this.handleToggle();
-  }
-
   handleToggle(): void {
     this.isPopupShown = !this.isPopupShown;
     if (this.isPopupShown) {
@@ -103,7 +99,7 @@ export class App extends LitElement {
       ></cn-popup-toggle>
 
       ${this.isPopupShown
-        ? html`<cn-popup .selectedText=${this.selectedText} @onSave=${this.handleOnSave}></cm-popup>`
+        ? html`<cn-popup .selectedText=${this.selectedText}></cm-popup>`
         : ''}
     `;
   }
