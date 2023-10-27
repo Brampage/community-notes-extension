@@ -1,7 +1,6 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {highlightSelection} from './selection-handler';
-import {getNotes} from './storage';
 
 @customElement('cn-app')
 export class App extends LitElement {
@@ -72,8 +71,6 @@ export class App extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-
-    console.log('getting notes in app: ', await getNotes(window.location.href));
 
     addEventListener('mouseup', () => {
       if (!this.isPopupShown) {
