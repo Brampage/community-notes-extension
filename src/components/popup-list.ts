@@ -27,12 +27,32 @@ export class PopupList extends LitElement {
 
   openNote(note: Note) {
     this.fullNote = note;
-    console.log('>>> full note', this.fullNote)
+    console.log('>>> full note', this.fullNote);
+  }
+
+  handleNavigateToForm() {
+    const event = new Event('navigateToForm');
+    this.dispatchEvent(event);
   }
 
   render() {
-    return !!this.fullNote ? html`<cn-note .full=${true} .note=${this.fullNote}></cn-note>` : html`${this.notes.map(
-      (note) => html`<cn-note @click=${() => this.openNote(note)} .note=${note}></cn-note>`
-    )} `;
+    if (!this.notes.length) {
+      return html` <div class="no-notes">
+        <p>
+          No notes yet. Create one
+          <a href="#0" @click=${this.handleNavigateToForm}>here</a>.
+        </p>
+      </div>`;
+    }
+
+    return !!this.fullNote
+      ? html`<cn-note .full=${true} .note=${this.fullNote}></cn-note>`
+      : html`${this.notes.map(
+          (note) =>
+            html`<cn-note
+              @click=${() => this.openNote(note)}
+              .note=${note}
+            ></cn-note>`
+        )} `;
   }
 }

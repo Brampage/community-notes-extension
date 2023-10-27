@@ -1,6 +1,6 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import {LitElement, css, html} from 'lit';
+import {customElement, property, state} from 'lit/decorators.js';
+import {classMap} from 'lit/directives/class-map.js';
 
 enum Tab {
   Form = 'Form',
@@ -91,6 +91,10 @@ export class Popup extends LitElement {
     this.activeTab = tab;
   }
 
+  navigateToForm() {
+    this.activeTab = Tab.Form;
+  }
+
   renderContents() {
     return html`<div class="popup-content">
       ${this.activeTab === Tab.Form
@@ -98,7 +102,9 @@ export class Popup extends LitElement {
             .selectedText=${this.selectedText}
             @onSave=${this.handleSave}
           ></cn-popup-form>`
-        : html`<cn-popup-list></cn-popup-list>`}
+        : html`<cn-popup-list
+            @navigateToForm=${this.navigateToForm}
+          ></cn-popup-list>`}
     </div>`;
   }
 
