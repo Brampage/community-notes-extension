@@ -21,11 +21,15 @@ export class App extends LitElement {
   }
 
   handleOnSave(): void {
-    highlightSelection();
   }
 
   handleToggle(): void {
     this.isPopupShown = !this.isPopupShown;
+    if (
+      this.isPopupShown
+    ) {
+      highlightSelection();
+    }
     console.log('isPopupShown: ', this.isPopupShown);
   }
 
