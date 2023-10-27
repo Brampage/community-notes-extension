@@ -13,9 +13,11 @@ export class Popup extends LitElement {
   note?: string;
 
   static styles = css`
-    :host {
-      position: absolute;
+    .popup {
+      display: block;
+      position: fixed;
       height: 30em;
+      max-width: 20em;
       bottom: 3em;
       right: 3em;
       padding: 1em;
@@ -24,6 +26,17 @@ export class Popup extends LitElement {
       font-size: small;
       background: lightgrey;
       max-width: 30em;
+      z-index: 999;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .selected-text,
+    textarea {
+      margin-bottom: 1em;
+    }
+
+    .selected-text {
+      user-select: none;
     }
   `;
 
@@ -32,7 +45,6 @@ export class Popup extends LitElement {
 
     const event = new Event('onSave');
     this.dispatchEvent(event);
-    console.log('note: ', this.note);
   }
 
   render() {
@@ -40,13 +52,17 @@ export class Popup extends LitElement {
       return html``;
     }
 
-    return html` <div style="padding: 1em">
-      <div style="margin-bottom: 1em;">${this.selectedText}</div>
-      <form id="note-form" style="margin-bottom: 1em;">
-        <span>${this.isPopupShown}</span>
+    return html` <div class="popup">
+      <h4>Create note for "${document.title}"</h4>
+
+      ${this.selectedText
+        ? html`<div class="selected-text">${this.selectedText}</div>`
+        : html``}
+
+      <form>
         <textarea
           id="note-field"
-          style="width: 100%; padding: 1em;"
+          style="width: calc(100% - 2em); padding: 1em;"
           placeholder="Your notes here..."
           name="note"
           @change=${(e: Event) =>
@@ -55,7 +71,7 @@ export class Popup extends LitElement {
           ${this.note}
         </textarea
         >
-        <button @click=${this.handleSave}></button>
+        <button @click=${this.handleSave}>Save</button>
       </form>
     </div>`;
   }

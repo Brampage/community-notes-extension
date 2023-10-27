@@ -13,8 +13,10 @@ export class App extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
     addEventListener('mouseup', () => {
-      var userSelection = window.getSelection()?.getRangeAt(0);
-      this.selectedText = userSelection?.toString() ?? '';
+      if (!this.isPopupShown) {
+        const userSelection = window.getSelection()?.getRangeAt(0);
+        this.selectedText = userSelection?.toString() ?? '';
+      }
     });
   }
 
