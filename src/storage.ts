@@ -9,9 +9,9 @@ export interface Note {
 export async function storeNote(key: string, note: Note) {
   const notes = await getNotes(key);
 
-  notes[key].push(note);
+  notes.push(note);
 
-  chrome.storage.local.set(notes);
+  chrome.storage.local.set({[key]: notes});
 }
 
 export async function getNotes(key: string) {
