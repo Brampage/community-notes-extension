@@ -10,6 +10,13 @@ export class PopupList extends LitElement {
       flex-direction: column;
       gap: 1em;
     }
+
+    .no-notes {
+      background: white;
+      padding: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
   `;
 
   @state()
