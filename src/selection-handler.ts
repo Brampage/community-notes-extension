@@ -1,6 +1,10 @@
-export function highlightSelection() {
+let _caller: any;
+
+export function highlightSelection({caller}: {caller: any}) {
   var userSelection = window.getSelection()?.getRangeAt(0);
   if (!userSelection) return;
+
+  _caller = caller;
 
   var safeRanges = getSafeRanges(userSelection);
   for (var i = 0; i < safeRanges.length; i++) {
@@ -11,6 +15,10 @@ export function highlightSelection() {
 function highlightRange(range: any) {
   var newNode = document.createElement('div');
   newNode.setAttribute('style', 'background-color: yellow; display: inline; cursor: pointer;');
+  newNode.onclick = () => {
+    _caller.selectedText = range.toString();
+    _caller.isPopupShown = true;
+  }
   range.surroundContents(newNode);
 }
 

@@ -28,7 +28,7 @@ export class App extends LitElement {
     if (
       this.isPopupShown
     ) {
-      highlightSelection();
+      highlightSelection({caller:this});
     }
     console.log('isPopupShown: ', this.isPopupShown);
   }
