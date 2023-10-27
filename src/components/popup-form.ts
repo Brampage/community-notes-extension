@@ -23,6 +23,7 @@ export class PopupForm extends LitElement {
     textarea {
       padding: 1em;
       resize: none;
+      border: 1px solid #ddd;
     }
 
     .selected-text {
@@ -33,6 +34,18 @@ export class PopupForm extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 1em;
+    }
+
+    button {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.7em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eee;
     }
   `;
 

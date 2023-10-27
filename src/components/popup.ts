@@ -42,14 +42,14 @@ export class Popup extends LitElement {
       position: fixed;
       bottom: 3em;
       right: 3em;
+      overflow: hidden;
 
-      padding: 1em;
       width: 20em;
 
       border: solid 1px grey;
       border-radius: 5px;
-      background: lightgrey;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      background: #f7f7f7;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
       font-size: small;
 
       z-index: 999;
@@ -59,11 +59,11 @@ export class Popup extends LitElement {
       display: flex;
       flex-direction: column;
       gap: 1em;
+      padding: 1em;
     }
 
     .popup-tabs {
       display: flex;
-      gap: 0.5em;
     }
 
     .popup-tabs > div {
@@ -76,7 +76,11 @@ export class Popup extends LitElement {
     }
 
     .popup-tabs > div.active {
-      border: 1px solid red;
+      font-weight: bold;
+    }
+
+    .popup-tabs > div:hover {
+      background: #eee;
     }
   `;
 
