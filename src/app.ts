@@ -97,9 +97,14 @@ export class App extends LitElement {
 
   render() {
     return html`
-      <cn-popup-toggle .isPopupShown=${this.isPopupShown} @onTogglePopup=${this.handleToggle}></cn-popup-toggle>
+      <cn-popup-toggle
+        .isPopupShown=${this.isPopupShown}
+        @onTogglePopup=${this.handleToggle}
+      ></cn-popup-toggle>
 
-      <cn-popup .isPopupShown=${this.isPopupShown} .selectedText=${this.selectedText} @onSave=${this.handleOnSave}></cm-popup>
+      ${this.isPopupShown
+        ? html`<cn-popup .selectedText=${this.selectedText} @onSave=${this.handleOnSave}></cm-popup>`
+        : ''}
     `;
   }
 }
