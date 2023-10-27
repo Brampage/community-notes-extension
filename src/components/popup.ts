@@ -1,6 +1,23 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {storeNote} from '../storage';
+import { LitElement, css, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { storeNote } from '../storage';
+
+enum Tab {
+  Form = 'Form',
+  Notes = 'Notes',
+}
+
+const Tabs = [
+  {
+    name: Tab.Form,
+    label: 'New note',
+  },
+  {
+    name: Tab.Notes,
+    label: 'Notes',
+  },
+];
 
 @customElement('cn-popup')
 export class Popup extends LitElement {
@@ -9,6 +26,9 @@ export class Popup extends LitElement {
 
   @property()
   selectedText?: string;
+
+  @state()
+  activeTab?: Tab = Tab.Form;
 
   note?: string;
 
@@ -20,13 +40,11 @@ export class Popup extends LitElement {
     .popup {
       display: block;
       position: fixed;
-      height: 30em;
       bottom: 3em;
       right: 3em;
 
       padding: 1em;
-      max-width: 20em;
-      max-height: 30em;
+      width: 20em;
 
       border: solid 1px grey;
       border-radius: 5px;
@@ -37,25 +55,28 @@ export class Popup extends LitElement {
       z-index: 999;
     }
 
-    textarea {
-      padding: 1em;
-      resize: none;
-    }
-
-    .selected-text {
-      user-select: none;
-    }
-
     .popup-content {
       display: flex;
       flex-direction: column;
       gap: 1em;
     }
 
-    form {
+    .popup-tabs {
       display: flex;
-      flex-direction: column;
-      gap: 1em;
+      gap: 0.5em;
+    }
+
+    .popup-tabs > div {
+      width: 100%;
+      text-align: center;
+      background: #fff;
+      margin: 1em 0 0 0;
+      padding: 1em;
+      cursor: pointer;
+    }
+
+    .popup-tabs > div.active {
+      border: 1px solid red;
     }
   `;
 
@@ -67,33 +88,31 @@ export class Popup extends LitElement {
     this.dispatchEvent(customEvent);
   }
 
+  handleTabChange(tab: Tab) {
+    this.activeTab = tab;
+  }
+
   render() {
     if (!this.isPopupShown) {
       return html``;
     }
 
-    return html` <div class="popup">
+    return html`<div class="popup">
       <div class="popup-content">
-        <h4>Create note for "${document.title}"</h4>
-
-        ${this.selectedText
-          ? html`<div class="selected-text">${this.selectedText}</div>`
-          : html``}
-
-        <form>
-          <textarea
-            id="note-field"
-            placeholder="Your notes here..."
-            name="note"
-            @change=${(e: Event) =>
-              (this.note = (e.target as HTMLTextAreaElement).value)}
-            rows="${this.selectedText ? 30 : 15}"
-            cols="50"
-          >
-${this.note}</textarea
-          >
-          <button @click=${this.handleSave}>Save</button>
-        </form>
+        ${this.activeTab === Tab.Form
+          ? html`<cn-popup-form></cn-popup-form>`
+          : html`<cn-popup-list></cn-popup-list>`}
+      </div>
+      <div class="popup-tabs">
+        ${Tabs.map(
+          (tab) =>
+            html`<div @click=${() => this.handleTabChange(tab.name)} class=${classMap({
+              active: this.activeTab === tab.name,
+            })
+            })}>
+              ${tab.label}
+            </div>`
+        )}
       </div>
     </div>`;
   }

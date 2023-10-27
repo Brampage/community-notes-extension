@@ -1,7 +1,7 @@
-import {LitElement, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {highlightSelection} from './selection-handler';
-import {getNotes} from './storage';
+import { LitElement, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { highlightSelection } from './selection-handler';
+import { getNotes } from './storage';
 
 @customElement('cn-app')
 export class App extends LitElement {
@@ -11,7 +11,7 @@ export class App extends LitElement {
   @property()
   isPopupShown = true;
 
-  async connectedCallback(): void {
+  async connectedCallback() {
     super.connectedCallback();
 
     console.log(await getNotes(window.location.href));
@@ -31,7 +31,7 @@ export class App extends LitElement {
   handleToggle(): void {
     this.isPopupShown = !this.isPopupShown;
     if (this.isPopupShown) {
-      highlightSelection({caller: this});
+      highlightSelection({ caller: this });
     }
     console.log('isPopupShown: ', this.isPopupShown);
   }
