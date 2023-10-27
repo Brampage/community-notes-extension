@@ -28,6 +28,10 @@ export class PopupForm extends LitElement {
 
     .selected-text {
       user-select: none;
+      font-style: italic;
+      border-left: 3px solid #ddd;
+      background: #eee;
+      padding: 0 1em;
     }
 
     form {
@@ -39,7 +43,7 @@ export class PopupForm extends LitElement {
     button {
       background: #fff;
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 5px;
       padding: 0.7em;
       cursor: pointer;
     }
@@ -77,7 +81,7 @@ export class PopupForm extends LitElement {
           name="note"
           @change=${(e: Event) =>
             (this.note = (e.target as HTMLTextAreaElement).value)}
-          rows="${this.selectedText ? 30 : 15}"
+          rows="15"
           cols="50"
         >
 ${this.note}</textarea
