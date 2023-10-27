@@ -1,6 +1,7 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {storeNote} from '../storage';
+import { highlightSelection } from '../selection-handler';
 
 @customElement('cn-popup')
 export class Popup extends LitElement {
@@ -42,7 +43,6 @@ export class Popup extends LitElement {
 
   handleSave(_e: Event) {
     storeNote(window.location.href, this.note ?? '');
-
     const event = new Event('onSave');
     this.dispatchEvent(event);
   }
@@ -67,9 +67,7 @@ export class Popup extends LitElement {
           name="note"
           @change=${(e: Event) =>
             (this.note = (e.target as HTMLTextAreaElement).value)}
-        >
-          ${this.note}
-        </textarea
+        >${this.note}</textarea
         >
         <button @click=${this.handleSave}>Save</button>
       </form>
