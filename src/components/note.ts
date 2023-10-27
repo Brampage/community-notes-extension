@@ -35,14 +35,20 @@ export class PopupNote extends LitElement {
     p {
       margin: 0;
     }
+    p#selectedText {
+      font-style: italic;
+      border-left: 3px solid #ddd;
+      background: #eee;
+      padding: 0 1em;
+    }
   `;
 
   render() {
     return html`
       <div class="link">
         ${this.note?.title && html`<h4>${this.note.title}</h4>`}
+        ${this.note?.selectedText && html`<p id="selectedText">${this.note.selectedText}</p>`}
         ${this.note?.note && html`<p>${this.note.note}</p>`}
-        ${this.note?.selectedText && html`<p>${this.note.selectedText}</p>`}
         ${this.note?.domain && html`<a href="#">${this.note.domain}</a>`}
       </div>
     `;
