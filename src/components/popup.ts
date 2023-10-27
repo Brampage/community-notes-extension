@@ -1,7 +1,7 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { storeNote } from '../storage';
+import {LitElement, css, html} from 'lit';
+import {customElement, property, state} from 'lit/decorators.js';
+import {classMap} from 'lit/directives/class-map.js';
+import {storeNote} from '../storage';
 
 enum Tab {
   Form = 'Form',
@@ -81,10 +81,7 @@ export class Popup extends LitElement {
     }
   `;
 
-  handleSave(event: Event) {
-    event.preventDefault();
-
-    storeNote(window.location.href, this.note ?? '');
+  handleSave(_event: Event) {
     const customEvent = new Event('onSave');
     this.dispatchEvent(customEvent);
   }
@@ -97,16 +94,21 @@ export class Popup extends LitElement {
     return html`<div class="popup">
       <div class="popup-content">
         ${this.activeTab === Tab.Form
-          ? html`<cn-popup-form .selectedText=${this.selectedText}></cn-popup-form>`
+          ? html`<cn-popup-form
+              .selectedText=${this.selectedText}
+              @onSave=${this.handleSave}
+            ></cn-popup-form>`
           : html`<cn-popup-list></cn-popup-list>`}
       </div>
       <div class="popup-tabs">
         ${Tabs.map(
           (tab) =>
-            html`<div @click=${() => this.handleTabChange(tab.name)} class=${classMap({
-              active: this.activeTab === tab.name,
-            })
-            })}>
+            html`<div
+              @click=${() => this.handleTabChange(tab.name)}
+              class="${classMap({
+                active: this.activeTab === tab.name,
+              })})}"
+            >
               ${tab.label}
             </div>`
         )}

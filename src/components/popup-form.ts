@@ -1,6 +1,6 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { storeNote } from '../storage';
+import {LitElement, css, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import {storeNote} from '../storage';
 
 @customElement('cn-popup-form')
 export class PopupForm extends LitElement {
@@ -11,9 +11,9 @@ export class PopupForm extends LitElement {
 
   static styles = css`
     :host {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
     }
 
     h4 {
@@ -52,7 +52,13 @@ export class PopupForm extends LitElement {
   handleSave(event: Event) {
     event.preventDefault();
 
-    storeNote(window.location.href, this.note ?? '');
+    storeNote(window.location.href, {
+      note: this.note ?? '',
+      selectedText: this.selectedText ?? '',
+      domain: window.location.hostname,
+      url: window.location.href,
+      title: document.title,
+    });
     const customEvent = new Event('onSave');
     this.dispatchEvent(customEvent);
   }
