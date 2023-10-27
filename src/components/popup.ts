@@ -22,9 +22,6 @@ const Tabs = [
 @customElement('cn-popup')
 export class Popup extends LitElement {
   @property()
-  isPopupShown = false;
-
-  @property()
   selectedText?: string;
 
   @state()
@@ -97,10 +94,6 @@ export class Popup extends LitElement {
   }
 
   render() {
-    if (!this.isPopupShown) {
-      return html``;
-    }
-
     return html`<div class="popup">
       <div class="popup-content">
         ${this.activeTab === Tab.Form
