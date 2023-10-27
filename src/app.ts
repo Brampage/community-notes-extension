@@ -22,6 +22,7 @@ export class App extends LitElement {
       * {
         margin: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: black;
       }
 
       html,
