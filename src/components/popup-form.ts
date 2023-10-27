@@ -1,6 +1,6 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {storeNote} from '../storage';
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { storeNote } from '../storage';
 
 @customElement('cn-popup-form')
 export class PopupForm extends LitElement {
@@ -63,7 +63,7 @@ export class PopupForm extends LitElement {
       url: window.location.href,
       title: document.title,
     });
-    const customEvent = new Event('onSave');
+    const customEvent = new Event('onSave', { bubbles: true, composed: true });
     this.dispatchEvent(customEvent);
   }
 

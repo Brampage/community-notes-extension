@@ -1,6 +1,7 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {highlightSelection} from './selection-handler';
+import { LitElement, css, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { highlightSelection } from './selection-handler';
+import { getNotes } from './storage';
 
 @customElement('cn-app')
 export class App extends LitElement {
@@ -9,6 +10,9 @@ export class App extends LitElement {
 
   @property()
   isPopupShown = false;
+
+  @state()
+  badgeCount = 0;
 
   static styles = [
     css`
@@ -71,6 +75,11 @@ export class App extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
+    this.refreshBadgeCount();
+
+    addEventListener('onSave', () => {
+      this.refreshBadgeCount();
+    });
 
     addEventListener('mouseup', () => {
       if (!this.isPopupShown) {
@@ -80,10 +89,14 @@ export class App extends LitElement {
     });
   }
 
+  async refreshBadgeCount() {
+    this.badgeCount = (await getNotes(window.location.href)).length;
+  }
+
   handleToggle(): void {
     this.isPopupShown = !this.isPopupShown;
     if (this.isPopupShown) {
-      highlightSelection({caller: this});
+      highlightSelection({ caller: this });
     }
     console.log('isPopupShown: ', this.isPopupShown);
   }
@@ -93,6 +106,7 @@ export class App extends LitElement {
       <cn-popup-toggle
         .isPopupShown=${this.isPopupShown}
         @onTogglePopup=${this.handleToggle}
+        .badgeCount=${this.badgeCount}
       ></cn-popup-toggle>
 
       ${this.isPopupShown
