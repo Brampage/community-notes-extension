@@ -82,8 +82,7 @@ export class Popup extends LitElement {
   `;
 
   handleSave(_event: Event) {
-    const customEvent = new Event('onSave');
-    this.dispatchEvent(customEvent);
+    this.activeTab = Tab.Notes;
   }
 
   handleTabChange(tab: Tab) {
