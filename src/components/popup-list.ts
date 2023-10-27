@@ -4,7 +4,13 @@ import {Note, getNotes} from '../storage';
 
 @customElement('cn-popup-list')
 export class PopupList extends LitElement {
-  static styles = css``;
+  static styles = css`
+    :host {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+  `;
 
   @state()
   notes: Note[] = [];
@@ -17,7 +23,7 @@ export class PopupList extends LitElement {
   }
   render() {
     return html`${this.notes.map(
-      (note) => html`<cn-link .note=${note}></cn-link>`
+      (note) => html`<cn-note .note=${note}></cn-note>`
     )} `;
   }
 }
