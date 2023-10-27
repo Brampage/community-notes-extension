@@ -10,7 +10,7 @@ export function highlightSelection() {
 
 function highlightRange(range: any) {
   var newNode = document.createElement('div');
-  newNode.setAttribute('style', 'background-color: yellow; display: inline;');
+  newNode.setAttribute('style', 'background-color: yellow; display: inline; cursor: pointer;');
   range.surroundContents(newNode);
 }
 
