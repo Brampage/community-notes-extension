@@ -16,8 +16,11 @@ function highlightRange(range: any) {
   var newNode = document.createElement('div');
   newNode.setAttribute('style', 'background-color: yellow; display: inline; cursor: pointer;');
   newNode.onclick = () => {
+    const prevSelectedText = _caller.selectedText;
     _caller.selectedText = range.toString();
-    _caller.isPopupShown = !_caller.isPopupShown;
+    _caller.isPopupShown = prevSelectedText == _caller.selectedText ?
+      _caller.isPopupShown = !_caller.isPopupShown
+       : true;
   }
   range.surroundContents(newNode);
 }
