@@ -1,6 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {highlightSelection} from './selection-handler';
+import { getNotes } from './storage';
 
 @customElement('cn-app')
 export class App extends LitElement {
@@ -10,8 +11,11 @@ export class App extends LitElement {
   @property()
   isPopupShown = false;
 
-  connectedCallback(): void {
+  async connectedCallback(): void {
     super.connectedCallback();
+
+    console.log(await getNotes(window.location.href));
+
     addEventListener('mouseup', () => {
       if (!this.isPopupShown) {
         const userSelection = window.getSelection()?.getRangeAt(0);
@@ -21,6 +25,7 @@ export class App extends LitElement {
   }
 
   handleOnSave(): void {
+    this.handleToggle();
   }
 
   handleToggle(): void {

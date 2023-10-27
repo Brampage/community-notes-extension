@@ -41,8 +41,11 @@ export class Popup extends LitElement {
     }
   `;
 
-  handleSave(_e: Event) {
+  handleSave(e: Event) {
+    e.preventDefault();
+
     storeNote(window.location.href, this.note ?? '');
+    
     const event = new Event('onSave');
     this.dispatchEvent(event);
   }
