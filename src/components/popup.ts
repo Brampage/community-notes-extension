@@ -104,7 +104,7 @@ export class Popup extends LitElement {
     return html`<div class="popup">
       <div class="popup-content">
         ${this.activeTab === Tab.Form
-          ? html`<cn-popup-form></cn-popup-form>`
+          ? html`<cn-popup-form .selectedText=${this.selectedText}></cn-popup-form>`
           : html`<cn-popup-list></cn-popup-list>`}
       </div>
       <div class="popup-tabs">
