@@ -1,7 +1,6 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
-import {classMap} from 'lit/directives/class-map.js';
-import {storeNote} from '../storage';
+import { LitElement, css, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 enum Tab {
   Form = 'Form',
@@ -57,6 +56,9 @@ export class Popup extends LitElement {
       flex-direction: column;
       gap: 1em;
       padding: 1em;
+
+      max-height: 60vh;
+      overflow-y: auto;
     }
 
     .popup-tabs {
@@ -89,29 +91,36 @@ export class Popup extends LitElement {
     this.activeTab = tab;
   }
 
+  renderContents() {
+    return html`<div class="popup-content">
+      ${this.activeTab === Tab.Form
+        ? html`<cn-popup-form
+            .selectedText=${this.selectedText}
+            @onSave=${this.handleSave}
+          ></cn-popup-form>`
+        : html`<cn-popup-list></cn-popup-list>`}
+    </div>`;
+  }
+
+  renderTabs() {
+    return html`<div class="popup-tabs">
+      ${Tabs.map(
+        (tab) =>
+          html`<div
+            @click=${() => this.handleTabChange(tab.name)}
+            class="${classMap({
+              active: this.activeTab === tab.name,
+            })})}"
+          >
+            ${tab.label}
+          </div>`
+      )}
+    </div>`;
+  }
+
   render() {
     return html`<div class="popup">
-      <div class="popup-content">
-        ${this.activeTab === Tab.Form
-          ? html`<cn-popup-form
-              .selectedText=${this.selectedText}
-              @onSave=${this.handleSave}
-            ></cn-popup-form>`
-          : html`<cn-popup-list></cn-popup-list>`}
-      </div>
-      <div class="popup-tabs">
-        ${Tabs.map(
-          (tab) =>
-            html`<div
-              @click=${() => this.handleTabChange(tab.name)}
-              class="${classMap({
-                active: this.activeTab === tab.name,
-              })})}"
-            >
-              ${tab.label}
-            </div>`
-        )}
-      </div>
+      ${this.renderContents()} ${this.renderTabs()}
     </div>`;
   }
 }

@@ -15,11 +15,10 @@ export class PopupNote extends LitElement {
     .link {
       display: flex;
       flex-direction: column;
-      gap: 0.5em;
+      gap: 0.2em;
 
       background: white;
       padding: 1em;
-      margin-bottom: 1em;
       cursor: pointer;
       border: 1px solid #ddd;
       border-radius: 5px;
