@@ -1,9 +1,9 @@
-import { LitElement, css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { highlightSelection } from "./selection-handler";
-import { getNotes } from "./storage";
+import {LitElement, css, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import {highlightSelection} from './selection-handler';
+import {getNotes} from './storage';
 
-@customElement("cn-app")
+@customElement('cn-app')
 export class App extends LitElement {
   @property()
   selectedText?: string;
@@ -21,7 +21,7 @@ export class App extends LitElement {
 
       * {
         margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: black;
       }
 
@@ -73,12 +73,12 @@ export class App extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
 
-    console.log(await getNotes(window.location.href));
+    console.log('getting notes in app: ', await getNotes(window.location.href));
 
-    addEventListener("mouseup", () => {
+    addEventListener('mouseup', () => {
       if (!this.isPopupShown) {
         const userSelection = window.getSelection()?.getRangeAt(0);
-        this.selectedText = userSelection?.toString() ?? "";
+        this.selectedText = userSelection?.toString() ?? '';
       }
     });
   }
@@ -90,9 +90,9 @@ export class App extends LitElement {
   handleToggle(): void {
     this.isPopupShown = !this.isPopupShown;
     if (this.isPopupShown) {
-      highlightSelection({ caller: this });
+      highlightSelection({caller: this});
     }
-    console.log("isPopupShown: ", this.isPopupShown);
+    console.log('isPopupShown: ', this.isPopupShown);
   }
 
   render() {

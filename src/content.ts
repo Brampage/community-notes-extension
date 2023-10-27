@@ -4,6 +4,8 @@ import {render, html} from 'lit-html';
 import './app';
 import './components/popup-toggle';
 import './components/popup-form';
+import './components/popup-list';
+import './components/link';
 import './components/popup';
 
 console.log('content script loaded');
