@@ -49,10 +49,10 @@ export class PopupForm extends LitElement {
     }
   `;
 
-  handleSave(event: Event) {
+  async handleSave(event: Event) {
     event.preventDefault();
 
-    storeNote(window.location.href, {
+    await storeNote(window.location.href, {
       note: this.note ?? '',
       selectedText: this.selectedText ?? '',
       domain: window.location.hostname,
