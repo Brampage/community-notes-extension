@@ -1,20 +1,33 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {Note} from '../storage';
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { Note } from "../storage";
 
-@customElement('cn-link')
+@customElement("cn-link")
 export class PopupForm extends LitElement {
   @property()
   note?: Note;
 
   static styles = css`
+
     .link {
       display: flex;
       flex-direction: column;
       gap: 1em;
-
       background: white;
       padding: 1em;
+      margin-bottom: 1em;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .link:hover {
+      border: 1px solid #888;
+    }
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   `;
 

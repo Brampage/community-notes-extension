@@ -39,7 +39,7 @@ export class PopupForm extends LitElement {
     button {
       background: #fff;
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 5px;
       padding: 0.7em;
       cursor: pointer;
     }
