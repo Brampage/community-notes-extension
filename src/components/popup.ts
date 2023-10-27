@@ -5,10 +5,12 @@ import {storeNote} from '../storage';
 @customElement('cn-popup')
 export class Popup extends LitElement {
   @property()
-  isShown = false;
+  isPopupShown = false;
 
   @property()
-  text?: string;
+  selectedText?: string;
+
+  note?: string;
 
   static styles = css`
     :host {
@@ -25,8 +27,6 @@ export class Popup extends LitElement {
     }
   `;
 
-  note?: string;
-
   handleSave(_e: Event) {
     storeNote(window.location.href, this.note ?? '');
 
@@ -36,25 +36,27 @@ export class Popup extends LitElement {
   }
 
   render() {
-    return (
-      this.isShown &&
-      html` <div style="padding: 1em">
-        <div style="margin-bottom: 1em;">${this.text}</div>
-        <form id="note-form" style="margin-bottom: 1em;">
-          <textarea
-            id="note-field"
-            style="width: 100%; padding: 1em;"
-            placeholder="Your notes here..."
-            name="note"
-            @change=${(e: Event) =>
-              (this.note = (e.target as HTMLTextAreaElement).value)}
-          >
+    if (!this.isPopupShown) {
+      return html``;
+    }
+
+    return html` <div style="padding: 1em">
+      <div style="margin-bottom: 1em;">${this.selectedText}</div>
+      <form id="note-form" style="margin-bottom: 1em;">
+        <span>${this.isPopupShown}</span>
+        <textarea
+          id="note-field"
+          style="width: 100%; padding: 1em;"
+          placeholder="Your notes here..."
+          name="note"
+          @change=${(e: Event) =>
+            (this.note = (e.target as HTMLTextAreaElement).value)}
+        >
           ${this.note}
         </textarea
-          >
-          <button @click=${this.handleSave}></button>
-        </form>
-      </div>`
-    );
+        >
+        <button @click=${this.handleSave}></button>
+      </form>
+    </div>`;
   }
 }

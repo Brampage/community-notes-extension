@@ -3,6 +3,9 @@ import {customElement, property} from 'lit/decorators.js';
 
 @customElement('cn-popup-toggle')
 export class PopupToggle extends LitElement {
+  @property()
+  isPopupShown?: string;
+
   static styles = css`
     button {
       position: fixed;
@@ -20,9 +23,6 @@ export class PopupToggle extends LitElement {
     }
   `;
 
-  @property()
-  text?: string;
-
   handleTogglePopup(_e: Event) {
     const event = new Event('onTogglePopup');
     this.dispatchEvent(event);
@@ -30,7 +30,7 @@ export class PopupToggle extends LitElement {
 
   render() {
     return html`<button id="popup-toggle" @click=${this.handleTogglePopup}>
-      C
+      ${this.isPopupShown ? 'X' : 'C'}
     </button>`;
   }
 }

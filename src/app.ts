@@ -7,6 +7,9 @@ export class App extends LitElement {
   @property()
   selectedText?: string;
 
+  @property()
+  isPopupShown = false;
+
   connectedCallback(): void {
     super.connectedCallback();
     addEventListener('mouseup', () => {
@@ -19,14 +22,16 @@ export class App extends LitElement {
     highlightSelection();
   }
 
-  handleToggle(): void {}
+  handleToggle(): void {
+    this.isPopupShown = !this.isPopupShown;
+    console.log('isPopupShown: ', this.isPopupShown);
+  }
 
   render() {
     return html`
-      <h1 id="test">TEST</h1>
-      <cn-popup-toggle @onTogglePopup=${this.handleToggle}></cn-popup-toggle>
+      <cn-popup-toggle .isPopupShown=${this.isPopupShown} @onTogglePopup=${this.handleToggle}></cn-popup-toggle>
 
-      <cn-popup text="${this.selectedText}" @onSave=${this.handleOnSave}></cm-popup>
+      <cn-popup .isPopupShown=${this.isPopupShown} .selectedText=${this.selectedText} @onSave=${this.handleOnSave}></cm-popup>
     `;
   }
 }
