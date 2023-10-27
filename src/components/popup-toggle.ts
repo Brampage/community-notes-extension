@@ -8,9 +8,8 @@ export class PopupToggle extends LitElement {
 
   static styles = css`
     button:hover {
-      background-color: #EDD54C;
-      color: black;
-      border: 1px solid black;
+      background-color:#F5E100;
+      border: 1px solid #EDD54C;
     }
     button {
       position: fixed;
@@ -19,8 +18,9 @@ export class PopupToggle extends LitElement {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: grey;
-      color: white;
+      background-color:#F4C501;
+      border: 1px solid #F58600;
+      color: #F58600;
       cursor: pointer;
       border: none;
       z-index: 9999;
