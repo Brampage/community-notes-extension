@@ -30,7 +30,12 @@ export class PopupNote extends LitElement {
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-
+    h4 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
     h4,
     p {
       margin: 0;
