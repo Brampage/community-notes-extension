@@ -40,7 +40,7 @@ export class Popup extends LitElement {
       right: 3em;
       overflow: hidden;
 
-      width: 20em;
+      width: 50%;
 
       border: solid 1px grey;
       border-radius: 5px;
